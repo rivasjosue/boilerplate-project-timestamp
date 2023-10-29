@@ -21,12 +21,13 @@ app.get("/", function (req, res) {
 app.get("/api/:date?", (req, res) => {
   let date = req.params.date;
   if(date) {
+    date = date.replace(/\d/g, "") == "" ? Number(date): date
     let unixdate = new Date(date)
-    if(!unixdate) return res.status(400).json({ error : "Invalid Date" })
-    res.status(200).json({ unix: unixdate, utc: unixdate.toUTCString()  })
+    if(!unixdate || unixdate == "Invalid Date") return res.status(400).send({ error : "Invalid Date" })
+    else res.status(200).send({ unix: unixdate.getTime(), utc: unixdate.toUTCString()  })
   } else {
     let unixdate = new Date()
-    res.status(200).json({ unix: unixdate, utc: unixdate.toUTCString()  })
+    res.status(200).send({ unix: unixdate.getTime()  })
   }
 })
 
