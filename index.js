@@ -27,7 +27,7 @@ app.get("/api/:date?", (req, res) => {
     else res.status(200).send({ unix: unixdate.getTime(), utc: unixdate.toUTCString()  })
   } else {
     let unixdate = new Date()
-    res.status(200).send({ unix: unixdate.getTime()  })
+    res.status(200).send({ unix: unixdate.getTime(), utc: unixdate.toUTCString()  })
   }
 })
 
